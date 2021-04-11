@@ -20,6 +20,20 @@ static void InterruptHandler(int signo) {
   interrupt_received = true;
 }
 
+void interDraw(int x, int y, int r, int g, int b, Canvas *can)
+{
+
+  if (y % 64 > 32)
+  {
+    y -= 32;
+    x += 192;
+  }
+  while (y > 96)
+    y -= 64;
+
+  can->SetPixel(x, y, r, g, b);
+}
+
 static void DrawOnCanvas(Canvas *canvas) {
   /*
    * Let's create a simple animation. We use the canvas to draw
@@ -27,19 +41,14 @@ static void DrawOnCanvas(Canvas *canvas) {
    */
   canvas->Fill(0, 0, 255);
 
-  int center_x = canvas->width() / 2;
-  int center_y = canvas->height() / 2;
   printf("\nCanvas Size: %d, %d\n\n", canvas->width(), canvas->height());
-  float radius_max = canvas->width() / 2;
-  float angle_step = 1.0 / 360;
-  for (float i = 0; i < canvas->width(); i++)
-    for (float j = 0; j < canvas->width(); j++) 
+  for (float i = 0; i < 192; i++)
+    for (float j = 0; j < 192; j++) 
     {
       if (interrupt_received)
         return;
-      canvas->SetPixel(i, j,
-                      255, 0, 0);
-      usleep(1 * 1000);  // wait a little to slow down things.
+      interDraw(i, j, 255, 0, 0, canvas);
+      usleep(1 * 100);  // wait a little to slow down things.
     }
 }
 
