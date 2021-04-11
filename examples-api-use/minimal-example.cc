@@ -29,7 +29,7 @@ void interDraw(int x, int y, int r, int g, int b, Canvas *can)
     x += 192;
   }
   while (y > 96)
-    y -= 64;
+    y -= 32;
 
   can->SetPixel(x, y, r, g, b);
 }
