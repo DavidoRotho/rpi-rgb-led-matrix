@@ -29,16 +29,18 @@ static void DrawOnCanvas(Canvas *canvas) {
 
   int center_x = canvas->width() / 2;
   int center_y = canvas->height() / 2;
-  printf("Canvas Size: %d, %d\n\n\n", canvas->width(), canvas->height());
+  printf("\nCanvas Size: %d, %d\n\n", canvas->width(), canvas->height());
   float radius_max = canvas->width() / 2;
   float angle_step = 1.0 / 360;
-  for (float i = 0; i < canvas->width(); i++) {
-    if (interrupt_received)
-      return;
-    canvas->SetPixel(i, i,
-                     255, 0, 0);
-    usleep(1 * 1000);  // wait a little to slow down things.
-  }
+  for (float i = 0; i < canvas->width(); i++)
+    for (float j = 0; j < canvas->width(); j++) 
+    {
+      if (interrupt_received)
+        return;
+      canvas->SetPixel(i, j,
+                      255, 0, 0);
+      usleep(1 * 1000);  // wait a little to slow down things.
+    }
 }
 
 int main(int argc, char *argv[]) {
