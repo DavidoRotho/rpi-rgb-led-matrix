@@ -26,8 +26,7 @@ void interDraw(int x, int y, int r, int g, int b, Canvas *can)
   int yWidth = 192;
 
   // First 0 to 32 needs to go to y = 0 to y = 32
-  // Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width
-  // Second also needs to be inverted on the Y
+  // Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width, also invert
   if (y >= 32 && y < 64)
   {
     // Get value of y from 0 to 32
@@ -46,12 +45,12 @@ void interDraw(int x, int y, int r, int g, int b, Canvas *can)
   if (y >= 96 && y < 128)
   {
     y -= 96;
-    y = 128-y;
+    y = 64-y;
     x += xWidth;
   }
 
   // Fifth 128 to 160 needs to go to y = 64 to y = 96
-  // Sixth 160 to 192 needs to go to y = 64 to y = 96 but offset by x width
+  // Sixth 160 to 192 needs to go to y = 64 to y = 96 but offset by x width, also invert
   if (y >= 128 && y < 160)
   {
     y -= 64;
@@ -59,7 +58,7 @@ void interDraw(int x, int y, int r, int g, int b, Canvas *can)
   if (y >= 160 && y < 192)
   {
     y -= 160;
-    y = 192-y;
+    y = 96-y;
     x += xWidth;
   }
 
