@@ -22,14 +22,41 @@ static void InterruptHandler(int signo) {
 
 void interDraw(int x, int y, int r, int g, int b, Canvas *can)
 {
+  int xWidth = 192;
+  int yWidth = 192;
 
-  if (y % 64 > 32)
+  // First 0 to 32 needs to go to y = 0 to y = 32
+  // Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width
+  if (y > 32 && y < 64)
   {
     y -= 32;
-    x += 192;
+    x += xWidth;
   }
-  while (y > 96)
+  
+  // Third 64 to 96 needs to go to y = 32 to y = 64
+  // Fourth 96 to 128 needs to go to y = 32 to y = 64 but offset by x width
+  if (y > 64 && y < 96)
+  {
     y -= 32;
+  }
+  if (y > 96 && y < 128)
+  {
+    y -= 64;
+    x += xWidth;
+  }
+
+  // Fifth 128 to 160 needs to go to y = 64 to y = 96
+  // Sixth 160 to 192 needs to go to y = 64 to y = 96 but offset by x width
+  if (y > 128 && y < 160)
+  {
+    y -= 64;
+  }
+  if (y > 96 && y < 128)
+  {
+    y -= 96;
+    x += xWidth;
+  }
+
 
   can->SetPixel(x, y, r, g, b);
 }
