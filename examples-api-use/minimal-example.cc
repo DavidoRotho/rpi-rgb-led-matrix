@@ -51,7 +51,7 @@ void interDraw(int x, int y, int r, int g, int b, Canvas *can)
   {
     y -= 64;
   }
-  if (y > 96 && y < 128)
+  if (y > 160 && y < 192)
   {
     y -= 96;
     x += xWidth;
