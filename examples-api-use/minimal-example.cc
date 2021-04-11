@@ -29,7 +29,7 @@ static void DrawOnCanvas(Canvas *canvas) {
 
   int center_x = canvas->width() / 2;
   int center_y = canvas->height() / 2;
-  print("Canvas Size: %d, %d\n", canvas->width(), canvas->height());
+  print("Canvas Size: %d, %d\n\n\n", canvas->width(), canvas->height());
   float radius_max = canvas->width() / 2;
   float angle_step = 1.0 / 360;
   for (float i = 0; i < canvas->width(); i++) {
