@@ -213,7 +213,7 @@ public:
 		{
 			// Get value of y from 0 to 31
 			y -= 32;
-			x = (xWidth-x)+xWidth;
+			x = (xWidth-x)+xWidth-1;
 		} // Working
 
 		// Third 64 to 96 needs to go to y = 32 to y = 64, invert
@@ -228,7 +228,7 @@ public:
 		else if (y >= 96 && y < 128)
 		{
 			y -= 64;
-			x = (xWidth-x)+xWidth;
+			x = (xWidth-x)+xWidth-1;
 		}
 
 		// Fifth 128 to 160 needs to go to y = 64 to y = 96
@@ -241,7 +241,7 @@ public:
 		else if (y >= 160)
 		{
 			y -= 96;
-			x = (xWidth-x)+xWidth;
+			x = (xWidth-x)+xWidth-1;
 		}
 		else if (true)
 			y = 128;
