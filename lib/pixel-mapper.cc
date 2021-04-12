@@ -225,13 +225,13 @@ public:
 			y = 63-y;
 
 		}
-		else if (true)
-			y = 128;
 		else if (y >= 96 && y < 128)
 		{
 			y -= 64;
 			x = (xWidth-x)+xWidth;
 		}
+		else if (true)
+			y = 128;
 
 		// Fifth 128 to 160 needs to go to y = 64 to y = 96
 		// Sixth 160 to 192 needs to go to y = 64 to y = 96 but offset by x width, also invert
