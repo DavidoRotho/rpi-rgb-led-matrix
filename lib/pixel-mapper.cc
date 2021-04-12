@@ -231,17 +231,20 @@ public:
 			x = (xWidth-x)+xWidth;
 		}
 
-		// Third 64 to 96 needs to go to y = 32 to y = 64
-		// Fourth 96 to 128 needs to go to y = 32 to y = 64 but offset by x width, also invert
+		// Third 64 to 96 needs to go to y = 32 to y = 64, invert
+		// Fourth 96 to 128 needs to go to y = 32 to y = 64 but offset by x width
 		if (y >= 64 && y < 96)
 		{
-			y -= 32;
+			// Get the range
+			y -= 64; // y is now 0 to 32
+			y = 96-y;
+
 		}
 		if (y >= 96 && y < 128)
 		{
 			y -= 96;
-			y = 64-y;
-			x += xWidth;
+			//y = 64-y;
+			x = (xWidth-x)+xWidth;
 		}
 
 		// Fifth 128 to 160 needs to go to y = 64 to y = 96
@@ -254,7 +257,7 @@ public:
 		{
 			y -= 160;
 			y = 96-y;
-			x += xWidth;
+			x = (xWidth-x)+xWidth;
 		}
 		*matrix_x = x;
 		*matrix_y = y;
