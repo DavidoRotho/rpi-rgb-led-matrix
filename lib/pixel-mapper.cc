@@ -243,7 +243,7 @@ public:
 		if (y >= 96 && y < 128)
 		{
 			y -= 96;
-			//y = 64-y;
+			y = 64-y;
 			x = (xWidth-x)+xWidth;
 		}
 
