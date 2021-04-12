@@ -228,7 +228,7 @@ public:
 			y -= 32;
 			//y = 32-y; // Invert
 			
-			x += xWidth;
+			x += xWidth-x;
 		}
 
 		// Third 64 to 96 needs to go to y = 32 to y = 64
