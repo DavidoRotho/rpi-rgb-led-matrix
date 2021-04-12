@@ -226,10 +226,8 @@ public:
 		{
 			// Get value of y from 0 to 32
 			y -= 32;
-			//y = 32-y; // Invert
-			
 			x = (xWidth-x)+xWidth;
-		}
+		} // Working
 
 		// Third 64 to 96 needs to go to y = 32 to y = 64, invert
 		// Fourth 96 to 128 needs to go to y = 32 to y = 64 but offset by x width
@@ -238,6 +236,8 @@ public:
 			// Get the range
 			y -= 64; // y is now 0 to 32
 			y = 96-y;
+
+			y = 0;
 
 		}
 		if (y >= 96 && y < 128)
