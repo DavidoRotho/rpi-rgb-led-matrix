@@ -238,13 +238,13 @@ public:
 			y -= 128;
 			y = 95-y;
 		}
-		else if (true)
-			y = 128;
 		else if (y >= 160)
 		{
 			y -= 96;
 			x = (xWidth-x)+xWidth;
 		}
+		else if (true)
+			y = 128;
 		*matrix_x = x;
 		*matrix_y = y;
 
