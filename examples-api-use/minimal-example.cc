@@ -55,7 +55,6 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 	    Vec3b p = frame.at<Vec3b>(j, i);
 	    canvas->SetPixel(i, j, p[2], p[1], p[0]);
 	  }
-	usleep(1 * 100);  // wait a little to slow down things.
   }
 }
 
