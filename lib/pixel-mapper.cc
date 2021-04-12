@@ -212,7 +212,7 @@ public:
 		else if (y >= 32 && y < 64)
 		{
 			// Get value of y from 0 to 31
-			y -= 31;
+			y -= 32;
 			x = (xWidth-x)+xWidth;
 		} // Working
 		else if (true)
