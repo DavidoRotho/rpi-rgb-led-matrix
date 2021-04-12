@@ -252,6 +252,8 @@ public:
 			y = 96-y;
 			x += xWidth;
 		}
+		*matrix_x = x;
+		*matrix_y = y;
 
 	}
 
