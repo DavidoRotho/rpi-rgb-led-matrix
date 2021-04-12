@@ -11,6 +11,12 @@
 #include <math.h>
 #include <stdio.h>
 #include <signal.h>
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <iostream>
+using namespace cv;
+using namespace std;
 
 using rgb_matrix::RGBMatrix;
 using rgb_matrix::Canvas;
@@ -20,71 +26,57 @@ static void InterruptHandler(int signo) {
   interrupt_received = true;
 }
 
-void interDraw(int x, int y, int r, int g, int b, Canvas *can)
-{
-  int xWidth = 192;
-  int yWidth = 192;
 
-  // First 0 to 32 needs to go to y = 0 to y = 32
-  // Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width, also invert
-  if (y >= 32 && y < 64)
-  {
-    // Get value of y from 0 to 32
-    y -= 32;
-    y = 32-y; // Invert
-    
-    x += xWidth;
-  }
-  
-  // Third 64 to 96 needs to go to y = 32 to y = 64
-  // Fourth 96 to 128 needs to go to y = 32 to y = 64 but offset by x width, also invert
-  if (y >= 64 && y < 96)
-  {
-    y -= 32;
-  }
-  if (y >= 96 && y < 128)
-  {
-    y -= 96;
-    y = 64-y;
-    x += xWidth;
-  }
-
-  // Fifth 128 to 160 needs to go to y = 64 to y = 96
-  // Sixth 160 to 192 needs to go to y = 64 to y = 96 but offset by x width, also invert
-  if (y >= 128 && y < 160)
-  {
-    y -= 64;
-  }
-  if (y >= 160 && y < 192)
-  {
-    y -= 160;
-    y = 96-y;
-    x += xWidth;
-  }
-
-
-  can->SetPixel(x, y, r, g, b);
-}
-
-static void DrawOnCanvas(Canvas *canvas) {
+static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
   /*
    * Let's create a simple animation. We use the canvas to draw
    * pixels. We wait between each step to have a slower animation.
    */
   canvas->Fill(0, 0, 255);
+    Mat frame;
 
   printf("\nCanvas Size: %d, %d\n\n", canvas->width(), canvas->height());
-  for (float i = 0; i < 192; i++)
-    for (float j = 0; j < 192; j++) 
-    {
-      if (interrupt_received)
-        return;
-      interDraw(i, j, 255, 0, 0, canvas);
-      usleep(1 * 100);  // wait a little to slow down things.
-    }
+  while (true)
+  {
+        // wait for a new frame from camera and store it into 'frame'
+        cap.read(frame);
+	printf("Read frame!\n");
+	printf("Matrix is %d by %d\n", frame.rows, frame.cols);
+        // check if we succeeded
+        if (frame.empty()) {
+            cerr << "ERROR! blank frame grabbed\n";
+            break;
+        }
+	for (float i = 0; i < 192; i++)
+	  for (float j = 0; j < 192; j++) 
+	  {
+	    if (interrupt_received)
+		return;
+	    Vec3b p = frame.at<Vec3b>(j, i);
+	    canvas->SetPixel(i, j, p[2], p[1], p[0]);
+	  }
+	usleep(1 * 100);  // wait a little to slow down things.
+  }
 }
 
 int main(int argc, char *argv[]) {
+    //--- INITIALIZE VIDEOCAPTURE
+    VideoCapture cap;
+    // open the default camera using default API
+    // cap.open(0);
+    // OR advance usage: select any API backend
+    int deviceID = 0;             // 0 = open default camera
+    int apiID = cv::CAP_ANY;      // 0 = autodetect default API
+    // open selected camera using selected API
+    cap.open(deviceID, apiID);
+    // check if we succeeded
+    if (!cap.isOpened()) {
+        cerr << "ERROR! Unable to open camera\n";
+        return -1;
+    }
+    //--- GRAB AND WRITE LOOP
+    cout << "Start grabbing" << endl
+        << "Press any key to terminate" << endl;
   RGBMatrix::Options defaults;
   defaults.hardware_mapping = "regular";  // or e.g. "adafruit-hat"
   defaults.rows = 32;
@@ -101,7 +93,7 @@ int main(int argc, char *argv[]) {
   signal(SIGTERM, InterruptHandler);
   signal(SIGINT, InterruptHandler);
 
-  DrawOnCanvas(canvas);    // Using the canvas.
+  DrawOnCanvas(canvas, cap);    // Using the canvas.
 
   // Animation finished. Shut down the RGB matrix.
   canvas->Clear();
@@ -109,3 +101,4 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
