@@ -240,10 +240,8 @@ public:
 		}
 		else if (y >= 96 && y < 128)
 		{
-			y -= 96;
-			y = 64-y;
+			y -= 64;
 			x = (xWidth-x)+xWidth;
-			y = 0;
 		}
 
 		// Fifth 128 to 160 needs to go to y = 64 to y = 96
