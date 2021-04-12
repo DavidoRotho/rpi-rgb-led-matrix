@@ -200,15 +200,17 @@ public:
 									int *matrix_x, int *matrix_y) const 
 	{
 		int xWidth = 192;
-
-		// First 0 to 32 needs to go to y = 0 to y = 32
-		// Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width, also invert
+		
+		// First 0 to 31 needs to go to y = 0 to y = 31
+		// Second 32 to 63 needs to go to y = 0 to y = 31 but offset by x width, also invert
 		if (y < 32)
 		{
+			printf("Pre-y: %d\n", y);
 			y = 31-y;
+			printf("Post-y: %d\n", y);
 		}
 		else if (true)
-			y = 0;
+			y = 128;
 		else if (y >= 32 && y < 64)
 		{
 			// Get value of y from 0 to 32
