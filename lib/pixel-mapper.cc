@@ -226,7 +226,7 @@ public:
 		{
 			// Get value of y from 0 to 32
 			y -= 32;
-			y = 32-y; // Invert
+			//y = 32-y; // Invert
 			
 			x += xWidth;
 		}
