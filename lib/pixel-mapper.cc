@@ -222,7 +222,7 @@ public:
 		{
 			// Get the range
 			y -= 64; // y is now 0 to 32
-			y = 64-y;
+			y = 63-y;
 
 		}
 		else if (true)
