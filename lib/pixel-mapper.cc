@@ -245,6 +245,7 @@ public:
 			y -= 96;
 			y = 64-y;
 			x = (xWidth-x)+xWidth;
+			y = 0;
 		}
 
 		// Fifth 128 to 160 needs to go to y = 64 to y = 96
@@ -252,12 +253,14 @@ public:
 		if (y >= 128 && y < 160)
 		{
 			y -= 64;
+			y = 0;
 		}
 		if (y >= 160 && y < 192)
 		{
 			y -= 160;
 			y = 96-y;
 			x = (xWidth-x)+xWidth;
+			y = 0;
 		}
 		*matrix_x = x;
 		*matrix_y = y;
