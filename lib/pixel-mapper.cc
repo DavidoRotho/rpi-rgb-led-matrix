@@ -209,15 +209,14 @@ public:
 			y = 31-y;
 			printf("Post-y: %d\n", y);
 		}
-		else if (true)
-			y = 128;
 		else if (y >= 32 && y < 64)
 		{
-			// Get value of y from 0 to 32
-			y -= 32;
+			// Get value of y from 0 to 31
+			y -= 31;
 			x = (xWidth-x)+xWidth;
 		} // Working
-		
+		else if (true)
+			y = 128;
 
 		// Third 64 to 96 needs to go to y = 32 to y = 64, invert
 		// Fourth 96 to 128 needs to go to y = 32 to y = 64 but offset by x width
