@@ -199,30 +199,15 @@ public:
 									int x, int y,
 									int *matrix_x, int *matrix_y) const 
 	{
-		/*const int panel_height = matrix_height / parallel_; // Height of a chain 32
-		const int visible_width = (matrix_width / 64) * 32; // Width of a chain/2 192
-		const int slab_height = 2 * panel_height;   // one folded u-shape // total height of the U
-		const int base_y = (y / slab_height) * panel_height;
-		y %= slab_height;
-		if (y > panel_height) {
-			x += matrix_width / 2;
-		} else {
-			x = visible_width - x - 1;
-			y = slab_height - y - 1;
-		}
-		*matrix_x = x;
-		*matrix_y = base_y + y;*/
-
 		int xWidth = 192;
-		int yWidth = 192;
 
 		// First 0 to 32 needs to go to y = 0 to y = 32
 		// Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width, also invert
-		if (y <= 32)
+		if (y < 32)
 		{
 			y = 32-y;
 		}
-		else if (y > 32 && y <= 64)
+		else if (y >= 32 && y < 64)
 		{
 			// Get value of y from 0 to 32
 			y -= 32;
