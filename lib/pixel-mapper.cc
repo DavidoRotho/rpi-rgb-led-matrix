@@ -253,10 +253,8 @@ public:
 		}
 		else if (y >= 160 && y < 192)
 		{
-			y -= 160;
-			y = 96-y;
+			y -= 128;
 			x = (xWidth-x)+xWidth;
-			y = 0;
 		}
 		*matrix_x = x;
 		*matrix_y = y;
