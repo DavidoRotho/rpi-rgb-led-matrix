@@ -248,8 +248,8 @@ public:
 		// Sixth 160 to 192 needs to go to y = 64 to y = 96 but offset by x width, also invert
 		else if (y >= 128 && y < 160)
 		{
-			y -= 64;
-			y = 0;
+			y -= 128;
+			y = 96-y;
 		}
 		else if (y >= 160 && y < 192)
 		{
