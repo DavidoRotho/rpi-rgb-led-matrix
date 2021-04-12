@@ -205,7 +205,7 @@ public:
 		// Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width, also invert
 		if (y < 32)
 		{
-			y = 31-y;
+			y = 32-y;
 		}
 		else if (true)
 			y = 0;
