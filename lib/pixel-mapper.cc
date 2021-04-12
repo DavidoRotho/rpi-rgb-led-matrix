@@ -218,6 +218,10 @@ public:
 
 		// First 0 to 32 needs to go to y = 0 to y = 32
 		// Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width, also invert
+		if (y < 32)
+		{
+			y = 32-y;
+		}
 		if (y >= 32 && y < 64)
 		{
 			// Get value of y from 0 to 32
