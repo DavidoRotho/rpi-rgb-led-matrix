@@ -218,11 +218,11 @@ public:
 
 		// First 0 to 32 needs to go to y = 0 to y = 32
 		// Second 0 to 32 needs to go to y = 0 to y = 32 but offset by x width, also invert
-		if (y < 32)
+		if (y <= 32)
 		{
 			y = 32-y;
 		}
-		if (y >= 32 && y < 64)
+		else if (y > 32 && y <= 64)
 		{
 			// Get value of y from 0 to 32
 			y -= 32;
@@ -231,16 +231,14 @@ public:
 
 		// Third 64 to 96 needs to go to y = 32 to y = 64, invert
 		// Fourth 96 to 128 needs to go to y = 32 to y = 64 but offset by x width
-		if (y >= 64 && y < 96)
+		else if (y >= 64 && y < 96)
 		{
 			// Get the range
 			y -= 64; // y is now 0 to 32
-			y = 96-y;
-
-			y = 0;
+			y = 64-y;
 
 		}
-		if (y >= 96 && y < 128)
+		else if (y >= 96 && y < 128)
 		{
 			y -= 96;
 			y = 64-y;
@@ -250,12 +248,12 @@ public:
 
 		// Fifth 128 to 160 needs to go to y = 64 to y = 96
 		// Sixth 160 to 192 needs to go to y = 64 to y = 96 but offset by x width, also invert
-		if (y >= 128 && y < 160)
+		else if (y >= 128 && y < 160)
 		{
 			y -= 64;
 			y = 0;
 		}
-		if (y >= 160 && y < 192)
+		else if (y >= 160 && y < 192)
 		{
 			y -= 160;
 			y = 96-y;
