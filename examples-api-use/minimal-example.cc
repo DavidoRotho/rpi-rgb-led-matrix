@@ -36,10 +36,11 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 	Mat frame;
 
 	printf("\nCanvas Size: %d, %d\n\n", canvas->width(), canvas->height());
+	cap.read(frame);
 	while (true)
 	{
 		// wait for a new frame from camera and store it into 'frame'
-		cap.read(frame);
+		
 		//printf("Read frame!\n");
 		//printf("Matrix is %d by %d\n", frame.rows, frame.cols);
 		// check if we succeeded
