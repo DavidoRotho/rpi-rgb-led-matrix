@@ -80,10 +80,6 @@ int main(int argc, char *argv[]) {
 	//printf("Read frame!\n");
 	//printf("Matrix is %d by %d\n", frame.rows, frame.cols);
 	// check if we succeeded
-	if (frame.empty()) {
-		cerr << "ERROR! blank frame grabbed\n";
-		break;
-	}
 	RGBMatrix::Options defaults;
 	defaults.hardware_mapping = "regular";  // or e.g. "adafruit-hat"
 	defaults.rows = 32;
