@@ -33,7 +33,7 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 	 * pixels. We wait between each step to have a slower animation.
 	 */
 	canvas->Fill(0, 0, 255);
-		Mat frame;
+	Mat frame;
 
 	printf("\nCanvas Size: %d, %d\n\n", canvas->width(), canvas->height());
 	while (true)

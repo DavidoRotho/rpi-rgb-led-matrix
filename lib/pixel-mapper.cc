@@ -205,9 +205,7 @@ public:
 		// Second 32 to 63 needs to go to y = 0 to y = 31 but offset by x width, also invert
 		if (y < 32)
 		{
-			printf("Pre-y: %d\n", y);
 			y = 31-y;
-			printf("Post-y: %d\n", y);
 		}
 		else if (y >= 32 && y < 64)
 		{
