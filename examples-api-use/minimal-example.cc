@@ -40,12 +40,12 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 	{
 		// wait for a new frame from camera and store it into 'frame'
 		cap.read(frame);
-		printf("Read frame!\n");
-		printf("Matrix is %d by %d\n", frame.rows, frame.cols);
+		//printf("Read frame!\n");
+		//printf("Matrix is %d by %d\n", frame.rows, frame.cols);
 		// check if we succeeded
 		if (frame.empty()) {
-				cerr << "ERROR! blank frame grabbed\n";
-				break;
+			cerr << "ERROR! blank frame grabbed\n";
+			break;
 		}
 		int stride = 2;
 		for (float i = 0; i < 192; i++)
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
 	// cap.open(0);
 	// OR advance usage: select any API backend
 	int deviceID = 0;             // 0 = open default camera
-	int apiID = cv::CAP_ANY;      // 0 = autodetect default API
+	int apiID = cv::CAP_V4L2;      // 0 = autodetect default API
 	// open selected camera using selected API
 	cap.open(deviceID, apiID);
 	// check if we succeeded
