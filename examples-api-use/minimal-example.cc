@@ -53,7 +53,7 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 			{
 				if (interrupt_received)
 					return;
-				Vec3b p = frame.at<Vec3b>(j*stride, i*stride);
+				Vec3b p = frame.at<Vec3b>(128+j*stride, 48+i*stride);
 				canvas->SetPixel(i, j, p[2], p[1], p[0]);
 			}
 	}
