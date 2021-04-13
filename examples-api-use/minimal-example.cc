@@ -15,6 +15,8 @@
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
 #include <iostream>
+#include <thread>
+#include <chrono>
 using namespace cv;
 using namespace std;
 
@@ -25,6 +27,8 @@ volatile bool interrupt_received = false;
 static void InterruptHandler(int signo) {
 	interrupt_received = true;
 }
+
+
 
 
 static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
@@ -60,13 +64,18 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 	}
 }
 
+void fourCCStringFromCode(int code, char fourCC[5]) {
+    for (int i = 0; i < 4; i++) {
+        fourCC[3 - i] = code >> (i * 8);
+    }
+    fourCC[4] = '\0';
+}
+
 int main(int argc, char *argv[]) {
 	//--- INITIALIZE VIDEOCAPTURE
 	VideoCapture cap;
 	int deviceID = 0;             // 0 = open default camera
 	int apiID = cv::CAP_V4L2;      // 0 = autodetect default API
-	cap.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
-	cap.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
 	// open selected camera using selected API
 	cap.open(deviceID, apiID);
 	Mat frame;
@@ -75,6 +84,15 @@ int main(int argc, char *argv[]) {
 			cerr << "ERROR! Unable to open camera\n";
 			return -1;
 	}
+    printf("Frame width: %f\n", cap.get(cv::CAP_PROP_FRAME_WIDTH));
+    printf("Frame height: %f\n", cap.get(cv::CAP_PROP_FRAME_HEIGHT));
+    printf("Frame rate: %f\n", cap.get(cv::CAP_PROP_FPS));
+	char fourCC[5];
+	int fcd = cap.get(cv::CAP_PROP_FOURCC);
+	fourCCStringFromCode(fcd, fourCC);
+	printf("FourCC: %s\n", fourCC);
+	printf("Format: %f\n", cap.get(cv::CAP_PROP_FORMAT));
+	std::this_thread::sleep_for(std::chrono::milliseconds(512));
 	//--- GRAB AND WRITE LOOP
 	cout << "Start grabbing" << endl;
 	cap.read(frame);
