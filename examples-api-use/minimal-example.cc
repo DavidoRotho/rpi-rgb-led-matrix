@@ -65,8 +65,8 @@ int main(int argc, char *argv[]) {
 	VideoCapture cap;
 	int deviceID = 0;             // 0 = open default camera
 	int apiID = cv::CAP_V4L2;      // 0 = autodetect default API
-	cap.set(cv::CAP_PROP_FRAME_WIDTH, 640);
-	cap.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
+	cap.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
+	cap.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
 	// open selected camera using selected API
 	cap.open(deviceID, apiID);
 	Mat frame;
