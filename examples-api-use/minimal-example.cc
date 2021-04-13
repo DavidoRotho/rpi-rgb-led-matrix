@@ -53,7 +53,7 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 			{
 				if (interrupt_received)
 					return;
-				Vec3b p = frame.at<Vec3b>(j*2, i*2);
+				Vec3b p = frame.at<Vec3b>(j*stride, i*stride);
 				canvas->SetPixel(i, j, p[2], p[1], p[0]);
 			}
 	}
@@ -62,15 +62,13 @@ static void DrawOnCanvas(Canvas *canvas, VideoCapture cap) {
 int main(int argc, char *argv[]) {
 	//--- INITIALIZE VIDEOCAPTURE
 	VideoCapture cap;
-	// open the default camera using default API
-	// cap.open(0);
-	// OR advance usage: select any API backend
 	int deviceID = 0;             // 0 = open default camera
 	int apiID = cv::CAP_V4L2;      // 0 = autodetect default API
 	cap.set(cv::CAP_PROP_FRAME_WIDTH, 640);
 	cap.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
 	// open selected camera using selected API
 	cap.open(deviceID, apiID);
+	Mat frame;
 	// check if we succeeded
 	if (!cap.isOpened()) {
 			cerr << "ERROR! Unable to open camera\n";
@@ -78,6 +76,14 @@ int main(int argc, char *argv[]) {
 	}
 	//--- GRAB AND WRITE LOOP
 	cout << "Start grabbing" << endl;
+	cap.read(frame);
+	//printf("Read frame!\n");
+	//printf("Matrix is %d by %d\n", frame.rows, frame.cols);
+	// check if we succeeded
+	if (frame.empty()) {
+		cerr << "ERROR! blank frame grabbed\n";
+		break;
+	}
 	RGBMatrix::Options defaults;
 	defaults.hardware_mapping = "regular";  // or e.g. "adafruit-hat"
 	defaults.rows = 32;
